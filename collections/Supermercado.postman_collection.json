@@ -1,0 +1,656 @@
+{
+	"info": {
+		"_postman_id": "2d108fe2-98a0-4ade-8f72-09d9f2b1473b",
+		"name": "Supermercado",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17339538"
+	},
+	"item": [
+		{
+			"name": "Add Supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201', function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.collectionVariables.set('SUPERMARKET_ID', jsonData.id);",
+							"pm.test('Check if ID was saved', function() {",
+							"    pm.expect(jsonData.id).to.exist;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Supermercado Exito\",\n    \"longitud\": \"74\",\n    \"latitud\": \"40\",\n    \"url_web\": \"https://exito.com\"\n}"
+				},
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add Supermarket",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Supermercado Exito\",\n    \"longitud\": \"74\",\n    \"latitud\": \"40\",\n    \"url_web\": \"https://exito.com\"\n}"
+						},
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Supermercado Exito\",\n    \"longitud\": \"74\",\n    \"latitud\": \"40\",\n    \"url_web\": \"https://exito.com\",\n    \"id\": \"187f3b57-198c-4e41-9b8f-6754cb238884\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add Invalid Supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 412', function () {",
+							"    pm.response.to.have.status(412);",
+							"});",
+							"pm.test('Get expected error message', function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.eql('El nombre del supermercado debe tener más de 10 caracteres.');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Carulla\",\n    \"longitud\": \"74\",\n    \"latitud\": \"40\",\n    \"url_web\": \"https://carulla.com\"\n}"
+				},
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add Invalid Supermarket",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Carulla\",\n    \"longitud\": \"74\",\n    \"latitud\": \"40\",\n    \"url_web\": \"https://carulla.com\"\n}"
+						},
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"El nombre del supermercado debe tener más de 10 caracteres.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Supermarkets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Supermarkets",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"187f3b57-198c-4e41-9b8f-6754cb238884\",\n        \"nombre\": \"Supermercado Exito\",\n        \"longitud\": 74,\n        \"latitud\": 40,\n        \"url_web\": \"https://exito.com\",\n        \"ciudades\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get Supermarket by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('ID matches', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get('SUPERMARKET_ID'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets/{{SUPERMARKET_ID}}",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets",
+						"{{SUPERMARKET_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Supermarket by ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets/{{SUPERMARKET_ID}}",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{SUPERMARKET_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"187f3b57-198c-4e41-9b8f-6754cb238884\",\n    \"nombre\": \"Supermercado Exito\",\n    \"longitud\": 74,\n    \"latitud\": 40,\n    \"url_web\": \"https://exito.com\",\n    \"ciudades\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Get invalid supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.message).to.eql(\"The ciudad with the given id was not found\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets/{{INVALID_ID}}",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets",
+						"{{INVALID_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get invalid supermarket",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets/{{INVALID_ID}}",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{INVALID_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The supermercado with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Supermarket was updated', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.nombre).to.eql('Supermercado Exito Actualizado');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Supermercado Exito Actualizado\"\n}"
+				},
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets/{{SUPERMARKET_ID}}",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets",
+						"{{SUPERMARKET_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Supermarket",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Supermercado Exito Actualizado\"\n}"
+						},
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets/{{SUPERMARKET_ID}}",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{SUPERMARKET_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"187f3b57-198c-4e41-9b8f-6754cb238884\",\n    \"nombre\": \"Supermercado Exito Actualizado\",\n    \"longitud\": 74,\n    \"latitud\": 40,\n    \"url_web\": \"https://exito.com\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Invalid Supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test('Get expected error message', function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.eql('El nombre del supermercado debe tener más de 10 caracteres.');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Invalido\"\n}"
+				},
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets/{{INVALID_ID}}",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets",
+						"{{INVALID_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Invalid Supermarket",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Invalido\"\n}"
+						},
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets/{{INVALID_ID}}",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{INVALID_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The supermercado with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets/{{SUPERMARKET_ID}}",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets",
+						"{{SUPERMARKET_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Supermarket",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets/{{SUPERMARKET_ID}}",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{SUPERMARKET_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete Invalid Supermarket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test('Get expected error message', function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.eql('The supermarket with the given id was not found');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PARCIAL_HOST}}/supermarkets/{{INVALID_ID}}",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"supermarkets",
+						"{{INVALID_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Invalid Supermarket",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PARCIAL_HOST}}/supermarkets/{{INVALID_ID}}",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{INVALID_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The supermercado with the given id was not found\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "PARCIAL_HOST",
+			"value": "localhost:3000"
+		},
+		{
+			"key": "SUPERMARKET_ID",
+			"value": ""
+		}
+	]
+}

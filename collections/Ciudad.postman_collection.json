@@ -1,0 +1,630 @@
+{
+	"info": {
+		"_postman_id": "bb89ce2e-0f45-41b6-adbe-0e47693092bc",
+		"name": "Ciudad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17339538"
+	},
+	"item": [
+		{
+			"name": "Add city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"CITY_ID\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Buenos Aires\",\r\n  \"pais\": \"Argentina\",\r\n  \"num_habitantes\": 3000000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add city",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Buenos Aires\",\r\n  \"pais\": \"Argentina\",\r\n  \"num_habitantes\": 3000000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Buenos Aires\",\n    \"pais\": \"Argentina\",\n    \"num_habitantes\": 3000000\n}"
+				}
+			]
+		},
+		{
+			"name": "Add invalid city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.message).to.eql(\"El país no está permitido. Solo se permiten: Argentina, Ecuador, Paraguay.\"); // Cambia este mensaje según tu validación\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Buenos Aires\",\r\n  \"pais\": \"Colombia\",\r\n  \"num_habitantes\": 3000000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add invalid city",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"El país Colombia no está permitido. Solo se permiten: Argentina, Ecuador, Paraguay.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get all cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of cities > ' + 0, function () {\r",
+							"    var data = pm.response.json()\r",
+							"    pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all cities",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"2f41b8e8-b065-406a-82b9-742a6d580340\",\n        \"nombre\": \"Buenos Aires\",\n        \"pais\": \"Argentina\",\n        \"num_habitantes\": 3000000,\n        \"supermercados\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get city",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities/{{CITY_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities",
+						"{{CITY_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get city",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities/{{CITY_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities",
+								"{{CITY_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"ae411e95-ad7c-4885-822c-1714b3b67cd6\",\n    \"nombre\": \"Buenos Aires\",\n    \"pais\": \"Argentina\",\n    \"num_habitantes\": 3000000,\n    \"supermercados\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Get invalid city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.message).to.eql(\"The ciudad with the given id was not found\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities/{{INVALID_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities",
+						"{{INVALID_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get invalid city",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities/{{INVALID_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities",
+								"{{INVALID_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The ciudad with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update city",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"num_habitantes\": 3000001\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities/{{CITY_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities",
+						"{{CITY_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update city",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"num_habitantes\": 3000001\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities/{{CITY_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities",
+								"{{CITY_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"601facf1-75b1-4605-adf3-6aa10984213c\",\n    \"nombre\": \"Buenos Aires\",\n    \"pais\": \"Argentina\",\n    \"num_habitantes\": 3000001\n}"
+				}
+			]
+		},
+		{
+			"name": "Update invalid city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.message).to.eql(\"The ciudad with the given id was not found\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"num_habitantes\": 3000001\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities/{{INVALID_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities",
+						"{{INVALID_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update invalid city",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"num_habitantes\": 3000001\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities/{{INVALID_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities",
+								"{{INVALID_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The ciudad with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities/{{CITY_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities",
+						"{{CITY_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete city",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities/{{CITY_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities",
+								"{{CITY_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete invalid city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get expected error message\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.message).to.eql(\"The restaurant with the given id was not found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{PARCIAL_HOST}}/cities/{{INVALID_ID}}",
+					"protocol": "http",
+					"host": [
+						"{{PARCIAL_HOST}}"
+					],
+					"path": [
+						"cities",
+						"{{INVALID_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete invalid city",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{PARCIAL_HOST}}/cities/{{INVALID_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{PARCIAL_HOST}}"
+							],
+							"path": [
+								"cities",
+								"{{INVALID_ID}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The ciudad with the given id was not found\"\n}"
+				}
+			]
+		}
+	]
+}
