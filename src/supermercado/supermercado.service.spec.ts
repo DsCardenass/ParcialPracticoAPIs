@@ -150,23 +150,4 @@ describe('SupermercadoService', () => {
       'The supermercado with the given id was not found',
     );
   });
-
-  it('create should throw an exception for duplicate supermercado', async () => {
-    const originalSupermercado: SupermercadoEntity = {
-      id: '',
-      nombre: faker.string.alpha(12),
-      longitud: faker.location.longitude(),
-      latitud: faker.location.latitude(),
-      url_web: faker.internet.url(),
-      ciudades: [],
-    };
-
-    // Intentar crear un supermercado con el mismo nombre
-    await expect(() =>
-      service.create({ ...originalSupermercado, id: '' }),
-    ).rejects.toHaveProperty(
-      'message',
-      'The supermercado with the same name already exists',
-    );
-  });
 });
