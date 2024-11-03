@@ -32,5 +32,7 @@ jobs:
             -Dsonar.projectKey=DsCardenass_ParcialPracticoAPIs
             -Dsonar.organization=dscardenass
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.sources=src
+            -Dsonar.tests=src
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
