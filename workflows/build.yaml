@@ -14,26 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      
+          fetch-depth: 0
+
       - name: Install dependencies
         run: yarn
 
       - name: Test and coverage
         run: yarn jest --coverage
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token for SonarCloud
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necesario para obtener información del PR
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token para SonarCloud
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectKey=your_project_key  # Cambia esto por tu clave de proyecto en SonarCloud
-            -Dsonar.sources=.
-            -Dsonar.coverageReportPaths=coverage/lcov.info  # Asegúrate de que esta ruta sea correcta
-            -Dsonar.inclusions=**/*.js
-            -Dsonar.tests=.
-            -Dsonar.test.inclusions=**/*.spec.js
+            -Dsonar.projectKey=DsCardenass_ParcialPracticoAPIs
+            -Dsonar.organization=dscardenass
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info  # Ruta al reporte de cobertura
+            -Dsonar.sources=src
+            -Dsonar.tests=src
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
