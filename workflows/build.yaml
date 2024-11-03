@@ -22,8 +22,8 @@ jobs:
       - name: Test and coverage
         run: yarn jest --coverage
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necesario para obtener información del PR
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token para SonarCloud
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -31,8 +31,6 @@ jobs:
           args: >
             -Dsonar.projectKey=DsCardenass_ParcialPracticoAPIs
             -Dsonar.organization=dscardenass
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info  # Ruta al reporte de cobertura
-            -Dsonar.sources=src
-            -Dsonar.tests=src
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
